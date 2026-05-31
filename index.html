@@ -2,57 +2,49 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>ESTÚDIO INFINITO - PRODUÇÃO INDUSTRIAL</title>
+    <title>ESTÚDIO INFINITO | SOBERANIA DE PROMPT</title>
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 12px; }
-        h1 { color: #ffab40; text-align: center; }
-        .group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #aaa; text-transform: uppercase; font-size: 12px; }
-        select, input, textarea { width: 100%; padding: 12px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px; }
-        button { width: 100%; padding: 15px; background: #ffab40; color: #000; font-weight: bold; cursor: pointer; border: none; margin-top: 10px; }
-        .preview-area { border: 2px dashed #444; min-height: 300px; margin-top: 20px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; }
+        body { background: #080808; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .container { max-width: 950px; margin: auto; background: #121212; padding: 30px; border-radius: 12px; }
+        h1 { color: #ffab40; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+        label { display: block; margin: 15px 0 5px; color: #ffab40; font-size: 12px; }
+        input, textarea, select { width: 100%; padding: 12px; background: #252525; border: 1px solid #444; color: #fff; margin-bottom: 10px; }
+        button { width: 100%; padding: 15px; background: #ffab40; color: #000; font-weight: bold; cursor: pointer; border: none; }
+        #visor-preview { width: 100%; min-height: 450px; border: 2px dashed #444; margin-top: 20px; display: flex; align-items: center; justify-content: center; text-align: center; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>ESTÚDIO INFINITO PRO</h1>
-    
-    <div class="group">
-        <label>Superfície de Aplicação (Pratos, Copos, Tecidos, Papelaria, Etc)</label>
-        <input type="text" id="superficie" placeholder="Ex: Pratos de Cerâmica, Guardanapos, Vidro, Tecido, etc...">
-    </div>
-
-    <div class="group">
-        <label>Ideia de Estampa (Prompt Infinito)</label>
-        <textarea id="prompt" rows="3" placeholder="Descreva sua estampa (estilo, tema, elementos)..."></textarea>
-    </div>
-
-    <div class="group">
-        <label>Paleta de Cores (Infinitas)</label>
-        <input type="text" id="paleta" placeholder="Ex: Dourado Metálico, Rose Gold, Royal Blue, ou INFINITA">
-    </div>
-
-    <div class="group">
-        <label>Formato e Saída</label>
+    <div class="container">
+        <h1>ESTÚDIO INFINITO</h1>
+        
+        <label>SUPERFÍCIE DE APLICAÇÃO</label>
+        <input type="text" id="superficie" placeholder="Ex: Pratos, Guardanapos, Azulejo, Tecidos...">
+        
+        <label>IDEIA DE ESTAMPA (PROMPT INFINITO)</label>
+        <textarea id="prompt" rows="4" placeholder="Descreva sua estampa..."></textarea>
+        
+        <label>PALETA DE CORES INFINITAS</label>
+        <input type="text" id="paleta" placeholder="Ex: Dourado, Rosé, Ouro Velho ou INFINITA">
+        
+        <label>FORMATO DE SAÍDA</label>
         <select id="formato">
-            <option>A4</option> <option>A3</option> <option>PNG</option> <option>JPG</option> <option>SVG</option> <option>PDF (Impressão)</option> <option>TIFF (Alta Resolução)</option>
+            <option>A4</option><option>A3</option><option>PNG</option><option>JPG</option><option>SVG</option><option>PDF</option><option>TIFF</option>
         </select>
+        
+        <button onclick="gerar()">GERAR ESTAMPA E DESIGN</button>
+        
+        <div id="visor-preview">VISOR PREVIEW - AGUARDANDO COMANDO</div>
+        
+        <button style="background:#333; color:#fff; margin-top:10px;" onclick="window.print()">IMPRIMIR / EXPORTAR ARQUIVO</button>
     </div>
 
-    <button onclick="gerarDesign()">GERAR ESTAMPA CALIBRADA</button>
-
-    <div class="preview-area" id="visor">VISOR PREVIEW - Aguardando seu comando de criação...</div>
-    <button style="background: #333; color: #fff;">DOWNLOAD / EXPORTAR ARQUIVO</button>
-</div>
-
-<script>
-    function gerarDesign() {
-        const sup = document.getElementById('superficie').value;
-        const ideia = document.getElementById('prompt').value;
-        const paleta = document.getElementById('paleta').value;
-        document.getElementById('visor').innerText = "Calibrando estampa para: " + sup + "\nTema: " + ideia + "\nPaleta: " + paleta + "\n\nO Sistema está processando o design em alta fidelidade...";
-    }
-</script>
+    <script>
+        function gerar() {
+            const s = document.getElementById('superficie').value;
+            const p = document.getElementById('prompt').value;
+            const c = document.getElementById('paleta').value;
+            document.getElementById('visor-preview').innerText = "CALIBRANDO: " + s + "\nPROMPT: " + p + "\nPALETA: " + c + "\n\nSISTEMA PRONTO PARA PRODUÇÃO.";
+        }
+    </script>
 </body>
 </html>
