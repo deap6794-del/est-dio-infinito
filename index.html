@@ -28,8 +28,11 @@
         .row { display: flex; gap: 10px; }
         .row > div { flex: 1; }
         
+        /* Buttons */
         .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 25px; border-radius: 8px; font-size: 16px; }
-        .btn-vendas { width: 100%; padding: 12px; background: transparent; color: #ffab40; border: 1px solid #ffab40; cursor: pointer; margin-top: 10px; border-radius: 8px; font-size: 13px; }
+        .btn-action-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .btn-action { background: #333; color: #fff; padding: 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 12px; }
+        .btn-vendas { width: 100%; padding: 12px; background: transparent; color: #ffab40; border: 1px solid #ffab40; cursor: pointer; margin-top: 15px; border-radius: 8px; font-size: 13px; }
 
         #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 150px; }
     </style>
@@ -72,7 +75,17 @@
 
     <div class="engine-section">
         <label class="label-field">MOCKUP ENGINE</label>
-        <select><option>Tecidos</option><option>Copos</option><option>MDF</option><option>Vidro</option><option>Embalagens</option></select>
+        <select>
+            <option>Tecidos</option>
+            <option>Papel digital impresso</option>
+            <option>Papel vegetal</option>
+            <option>Papel de parede</option>
+            <option>Madeira</option>
+            <option>Copos</option>
+            <option>MDF</option>
+            <option>Vidro</option>
+            <option>Embalagens</option>
+        </select>
     </div>
 
     <div class="engine-section">
@@ -85,6 +98,12 @@
 
     <button class="btn-prod" onclick="produzir()">GERAR ESTAMPA E VISUALIZAR</button>
     
+    <div class="btn-action-group">
+        <button class="btn-action">BAIXAR</button>
+        <button class="btn-action">EXPORTAR</button>
+        <button class="btn-action">IMPRIMIR</button>
+    </div>
+
     <label class="label-field" style="margin-top:25px;">VISUALIZAÇÃO DE PRODUÇÃO</label>
     <div id="preview-area">
         <p id="status-text" style="color:#666; font-size: 12px;">A estampa gerada aparecerá aqui...</p>
