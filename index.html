@@ -2,49 +2,80 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>ESTÚDIO INFINITO | SOBERANIA DE PROMPT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINE FOCUS | ESTÚDIO PRO</title>
     <style>
-        body { background: #080808; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; padding: 20px; }
-        .container { max-width: 950px; margin: auto; background: #121212; padding: 30px; border-radius: 12px; }
-        h1 { color: #ffab40; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
-        label { display: block; margin: 15px 0 5px; color: #ffab40; font-size: 12px; }
-        input, textarea, select { width: 100%; padding: 12px; background: #252525; border: 1px solid #444; color: #fff; margin-bottom: 10px; }
-        button { width: 100%; padding: 15px; background: #ffab40; color: #000; font-weight: bold; cursor: pointer; border: none; }
-        #visor-preview { width: 100%; min-height: 450px; border: 2px dashed #444; margin-top: 20px; display: flex; align-items: center; justify-content: center; text-align: center; }
+        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 15px; }
+        .container { max-width: 600px; margin: auto; background: #121212; padding: 25px; border-radius: 16px; border: 1px solid #333; }
+        h1 { color: #ffab40; text-align: center; font-size: 20px; text-transform: uppercase; margin-bottom: 20px; }
+        .label-field { display: block; margin-top: 15px; font-size: 11px; color: #ffab40; font-weight: bold; text-transform: uppercase; }
+        input, textarea, select { width: 100%; padding: 12px; margin-top: 5px; background: #1a1a1a; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .row { display: flex; gap: 10px; }
+        .row > div { flex: 1; }
+        .seamless-box { margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #444; }
+        .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 25px; border-radius: 8px; font-size: 16px; }
+        .btn-vendas { width: 100%; padding: 14px; background: transparent; color: #ffab40; border: 1px solid #ffab40; cursor: pointer; margin-top: 15px; border-radius: 8px; font-size: 14px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ESTÚDIO INFINITO</h1>
-        
-        <label>SUPERFÍCIE DE APLICAÇÃO</label>
-        <input type="text" id="superficie" placeholder="Ex: Pratos, Guardanapos, Azulejo, Tecidos...">
-        
-        <label>IDEIA DE ESTAMPA (PROMPT INFINITO)</label>
-        <textarea id="prompt" rows="4" placeholder="Descreva sua estampa..."></textarea>
-        
-        <label>PALETA DE CORES INFINITAS</label>
-        <input type="text" id="paleta" placeholder="Ex: Dourado, Rosé, Ouro Velho ou INFINITA">
-        
-        <label>FORMATO DE SAÍDA</label>
-        <select id="formato">
-            <option>A4</option><option>A3</option><option>PNG</option><option>JPG</option><option>SVG</option><option>PDF</option><option>TIFF</option>
-        </select>
-        
-        <button onclick="gerar()">GERAR ESTAMPA E DESIGN</button>
-        
-        <div id="visor-preview">VISOR PREVIEW - AGUARDANDO COMANDO</div>
-        
-        <button style="background:#333; color:#fff; margin-top:10px;" onclick="window.print()">IMPRIMIR / EXPORTAR ARQUIVO</button>
+<div class="container">
+    <h1>Estúdio de Estamparia Adaptável Pro</h1>
+    
+    <label class="label-field">PEDIDO DE ESTAMPA</label>
+    <textarea id="prompt" rows="3" placeholder="Ex: Capivarinhas de vestidos lilás..."></textarea>
+    
+    <label class="label-field">PALETA DE CORES (OPCIONAL)</label>
+    <input type="text" id="cores" placeholder="Ex: Tons lilás, rosa fúcsia e creme">
+
+    <div class="seamless-box">
+        <label>Padrão Repetitivo (Seamless)</label>
+        <input type="checkbox" id="seamless" style="width: auto;">
     </div>
 
-    <script>
-        function gerar() {
-            const s = document.getElementById('superficie').value;
-            const p = document.getElementById('prompt').value;
-            const c = document.getElementById('paleta').value;
-            document.getElementById('visor-preview').innerText = "CALIBRANDO: " + s + "\nPROMPT: " + p + "\nPALETA: " + c + "\n\nSISTEMA PRONTO PARA PRODUÇÃO.";
-        }
-    </script>
+    <div class="row">
+        <div>
+            <label class="label-field">TAMANHO</label>
+            <select id="tamanho">
+                <option>A4</option>
+                <option>A3</option>
+                <option>A2</option>
+                <option>Personalizado</option>
+            </select>
+        </div>
+        <div>
+            <label class="label-field">FORMATO</label>
+            <select id="formato">
+                <option>PNG</option>
+                <option>JPG</option>
+                <option>SVG</option>
+                <option>PDF</option>
+                <option>TIFF</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div>
+            <label class="label-field">LARGURA (CM)</label>
+            <input type="number" id="largura" placeholder="Ex: 21">
+        </div>
+        <div>
+            <label class="label-field">ALTURA (CM)</label>
+            <input type="number" id="altura" placeholder="Ex: 29.7">
+        </div>
+    </div>
+
+    <button class="btn-prod" onclick="produzir()">GERAR ESTAMPA</button>
+    <button class="btn-vendas" onclick="window.location.href='https://wa.me/5512981452413'">ASSINATURA CINE FOCUS (PRO)</button>
+</div>
+
+<script>
+    function produzir() {
+        const p = document.getElementById('prompt').value;
+        const tam = document.getElementById('tamanho').value;
+        if(!p) { alert("Descreva o pedido de estampa."); return; }
+        alert("Produzindo estampa " + tam + " em alta definição...");
+    }
+</script>
 </body>
 </html>
