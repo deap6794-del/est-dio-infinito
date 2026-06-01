@@ -15,6 +15,10 @@
         .seamless-box { margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #444; }
         .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 25px; border-radius: 8px; font-size: 16px; }
         .btn-vendas { width: 100%; padding: 14px; background: transparent; color: #ffab40; border: 1px solid #ffab40; cursor: pointer; margin-top: 15px; border-radius: 8px; font-size: 14px; }
+        
+        /* Área de Preview */
+        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        #preview-area img { max-width: 100%; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -35,46 +39,33 @@
     <div class="row">
         <div>
             <label class="label-field">TAMANHO</label>
-            <select id="tamanho">
-                <option>A4</option>
-                <option>A3</option>
-                <option>A2</option>
-                <option>Personalizado</option>
-            </select>
+            <select id="tamanho"><option>A4</option><option>A3</option><option>A2</option></select>
         </div>
         <div>
             <label class="label-field">FORMATO</label>
-            <select id="formato">
-                <option>PNG</option>
-                <option>JPG</option>
-                <option>SVG</option>
-                <option>PDF</option>
-                <option>TIFF</option>
-            </select>
+            <select id="formato"><option>PNG</option><option>JPG</option><option>SVG</option><option>PDF</option><option>TIFF</option></select>
         </div>
     </div>
 
-    <div class="row">
-        <div>
-            <label class="label-field">LARGURA (CM)</label>
-            <input type="number" id="largura" placeholder="Ex: 21">
-        </div>
-        <div>
-            <label class="label-field">ALTURA (CM)</label>
-            <input type="number" id="altura" placeholder="Ex: 29.7">
-        </div>
+    <button class="btn-prod" onclick="produzir()">GERAR ESTAMPA E VISUALIZAR</button>
+    
+    <!-- ÁREA DE PREVIEW -->
+    <label class="label-field" style="margin-top:25px;">VISUALIZAÇÃO DE PRODUÇÃO</label>
+    <div id="preview-area">
+        <p style="color:#666;">A estampa gerada aparecerá aqui...</p>
     </div>
 
-    <button class="btn-prod" onclick="produzir()">GERAR ESTAMPA</button>
     <button class="btn-vendas" onclick="window.location.href='https://wa.me/5512981452413'">ASSINATURA CINE FOCUS (PRO)</button>
 </div>
 
 <script>
     function produzir() {
         const p = document.getElementById('prompt').value;
-        const tam = document.getElementById('tamanho').value;
+        const preview = document.getElementById('preview-area');
         if(!p) { alert("Descreva o pedido de estampa."); return; }
-        alert("Produzindo estampa " + tam + " em alta definição...");
+        
+        // Simulação do resultado (Aqui você carregará o link da sua imagem gerada pela IA)
+        preview.innerHTML = "<p style='color:#ffab40;'>Processando IA... Em breve sua estampa aparecerá aqui com alta definição.</p>";
     }
 </script>
 </body>
