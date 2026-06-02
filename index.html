@@ -3,87 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINE FOCUS | MOTOR DE GERAÇÃO IA</title>
+    <title>CINE FOCUS | MOTOR DE PRODUÇÃO</title>
     <style>
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 10px; }
-        .container { max-width: 600px; margin: auto; background: #121212; padding: 20px; border-radius: 16px; border: 1px solid #333; }
+        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: #121212; padding: 25px; border-radius: 20px; border: 1px solid #444; }
+        h1 { color: #ffab40; text-align: center; font-size: 20px; text-transform: uppercase; margin-bottom: 20px; }
+        .label-field { display: block; margin-top: 15px; font-size: 11px; color: #ffab40; font-weight: bold; margin-bottom: 5px; }
+        textarea { width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #ffab40; color: #fff; border-radius: 10px; height: 120px; font-size: 14px; box-sizing: border-box; }
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        select { width: 100%; padding: 10px; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 8px; }
+        .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: 900; border: none; cursor: pointer; margin-top: 20px; border-radius: 10px; text-transform: uppercase; }
         
-        .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #1a1a1a; padding: 10px; border-radius: 10px; }
-        .badge { background: #ffab40; color: #000; padding: 4px 8px; font-size: 10px; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
-        
-        h1 { color: #ffab40; text-align: center; font-size: 18px; text-transform: uppercase; margin-bottom: 15px; }
-        .label-field { display: block; margin-top: 15px; font-size: 10px; color: #ffab40; font-weight: bold; text-transform: uppercase; }
-        
-        textarea { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #ffab40; color: #fff; border-radius: 8px; box-sizing: border-box; height: 120px; font-size: 14px; }
-        
-        .engine-section { margin-top: 15px; padding: 15px; background: #161616; border-radius: 10px; border: 1px solid #222; }
-        
-        .btn-prod { width: 100%; padding: 20px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 20px; border-radius: 8px; font-size: 16px; text-transform: uppercase; }
-        
-        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        /* Área de Preview e Botões de Ação */
+        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #imagem-gerada { max-width: 100%; border-radius: 8px; margin-bottom: 15px; display: none; }
+        .action-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; width: 100%; }
+        .btn-action { padding: 10px; background: #333; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        .btn-action:hover { background: #444; }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="status-bar">
-        <span class="badge">GERADOR PROMPT-ONLY</span>
-        <span style="font-size: 10px; color: #888;">MOTOR: ATIVO</span>
+    <h1>CINE FOCUS | MOTOR DE PRODUÇÃO</h1>
+    
+    <label class="label-field">O QUE VAMOS CRIAR HOJE?</label>
+    <textarea id="prompt" placeholder="Descreva sua estampa..."></textarea>
+    
+    <div class="controls">
+        <select id="tipo-saida">
+            <option value="padrao-seamless">Seamless (Repetitivo)</option>
+            <option value="arte-isolada">Arte Isolada</option>
+            <option value="estilo-3d">Estilo 3D/Cartoon</option>
+        </select>
+        <select id="formato">
+            <option value="PNG">PNG</option>
+            <option value="JPG">JPG</option>
+            <option value="TIFF">TIFF</option>
+        </select>
     </div>
 
-    <h1>CINE FOCUS | ENGENHARIA DE PROMPT</h1>
-    
-    <label class="label-field">SEU COMANDO DE CRIAÇÃO (PROMPT)</label>
-    <textarea id="prompt" placeholder="Ex: Estampa de capivarinhas, estilo aquarela, cores lilás e branco, padrão seamless..."></textarea>
-    
-    <div class="engine-section">
-        <label class="label-field">ESPECIFICAÇÕES TÉCNICAS</label>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
-            <select id="tamanho"><option>A4</option><option>A3</option></select>
-            <select id="formato"><option>PNG</option><option>TIFF</option><option>PDF</option></select>
-        </div>
-    </div>
-
-    <button class="btn-prod" onclick="iniciarGeracao()">GERAR NOVA ESTAMPA</button>
+    <button class="btn-prod" onclick="gerarEstampa()">GERAR ARTE AUTÔNOMA</button>
     
     <div id="preview-area">
-        <p id="status-text" style="color:#666; font-size: 12px;">Aguardando seu comando de geração...</p>
+        <img id="imagem-gerada" src="" alt="Sua arte">
+        <p id="status-text" style="color:#666;">Aguardando o comando...</p>
+        
+        <div class="action-group" id="botoes-acao" style="display:none;">
+            <button class="btn-action" onclick="baixarImagem()">BAIXAR</button>
+            <button class="btn-action" onclick="window.location.href='mailto:?subject=Minha Estampa'">EXPORTAR</button>
+            <button class="btn-action" onclick="window.print()">IMPRIMIR</button>
+        </div>
     </div>
-
-    <button onclick="window.location.href='https://wa.me/5512981452413'" style="width:100%; padding: 10px; background:transparent; color:#ffab40; border:1px solid #ffab40; margin-top:15px; border-radius:8px; cursor:pointer;">ASSINATURA CINE FOCUS (PRO)</button>
 </div>
 
 <script>
-    async function iniciarGeracao() {
-        const p = document.getElementById('prompt').value;
+    async function gerarEstampa() {
+        const promptText = document.getElementById('prompt').value;
         const status = document.getElementById('status-text');
-        const preview = document.getElementById('preview-area');
+        const imgElement = document.getElementById('imagem-gerada');
+        const botoes = document.getElementById('botoes-acao');
         
-        if(!p) { 
-            alert("Digite o seu comando (Prompt) para criar."); 
-            return; 
-        }
+        if(!promptText) { alert("Deni, descreva o que deseja criar."); return; }
 
-        status.innerText = "Processando IA... aguarde...";
+        status.innerText = "Processando criação...";
+        imgElement.style.display = 'none';
+        botoes.style.display = 'none';
 
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: p })
+                body: JSON.stringify({ prompt: promptText })
             });
 
             const data = await response.json();
 
             if (response.ok && data.imageUrl) {
-                preview.innerHTML = `<img src="${data.imageUrl}" style="width:100%; border-radius:10px;">`;
-                status.innerText = "Estampa gerada com sucesso!";
+                imgElement.src = data.imageUrl;
+                imgElement.style.display = 'block';
+                status.innerText = "Arte gerada com sucesso!";
+                botoes.style.display = 'grid';
             } else {
-                status.innerText = "Erro: " + (data.error || "Falha ao gerar a imagem.");
+                status.innerText = "Erro na geração: " + (data.error || "Tente novamente");
             }
         } catch (error) {
-            status.innerText = "Erro de conexão com o servidor.";
-            console.error(error);
+            status.innerText = "Erro de conexão.";
         }
+    }
+
+    function baixarImagem() {
+        const img = document.getElementById('imagem-gerada');
+        const link = document.createElement('a');
+        link.href = img.src;
+        link.download = 'CineFocus-Estampa.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 </script>
 </body>
