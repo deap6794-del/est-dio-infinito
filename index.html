@@ -1,105 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINE FOCUS | MOTOR DE PRODUÇÃO</title>
-    <style>
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: #121212; padding: 25px; border-radius: 20px; border: 1px solid #444; }
-        h1 { color: #ffab40; text-align: center; font-size: 20px; text-transform: uppercase; margin-bottom: 20px; }
-        .label-field { display: block; margin-top: 15px; font-size: 11px; color: #ffab40; font-weight: bold; margin-bottom: 5px; }
-        textarea { width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #ffab40; color: #fff; border-radius: 10px; height: 120px; font-size: 14px; box-sizing: border-box; }
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        select { width: 100%; padding: 10px; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 8px; }
-        .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: 900; border: none; cursor: pointer; margin-top: 20px; border-radius: 10px; text-transform: uppercase; }
-        
-        /* Área de Preview e Botões de Ação */
-        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #imagem-gerada { max-width: 100%; border-radius: 8px; margin-bottom: 15px; display: none; }
-        .action-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; width: 100%; }
-        .btn-action { padding: 10px; background: #333; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }
-        .btn-action:hover { background: #444; }
-    </style>
+    <title>Sistema de Estamparia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container">
-    <h1>CINE FOCUS | MOTOR DE PRODUÇÃO</h1>
-    
-    <label class="label-field">O QUE VAMOS CRIAR HOJE?</label>
-    <textarea id="prompt" placeholder="Descreva sua estampa..."></textarea>
-    
-    <div class="controls">
-        <select id="tipo-saida">
-            <option value="padrao-seamless">Seamless (Repetitivo)</option>
-            <option value="arte-isolada">Arte Isolada</option>
-            <option value="estilo-3d">Estilo 3D/Cartoon</option>
-        </select>
-        <select id="formato">
-            <option value="PNG">PNG</option>
-            <option value="JPG">JPG</option>
-            <option value="TIFF">TIFF</option>
-        </select>
-    </div>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
 
-    <button class="btn-prod" onclick="gerarEstampa()">GERAR ARTE AUTÔNOMA</button>
-    
-    <div id="preview-area">
-        <img id="imagem-gerada" src="" alt="Sua arte">
-        <p id="status-text" style="color:#666;">Aguardando o comando...</p>
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Painel de Produção</h1>
         
-        <div class="action-group" id="botoes-acao" style="display:none;">
-            <button class="btn-action" onclick="baixarImagem()">BAIXAR</button>
-            <button class="btn-action" onclick="window.location.href='mailto:?subject=Minha Estampa'">EXPORTAR</button>
-            <button class="btn-action" onclick="window.print()">IMPRIMIR</button>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Menu de Superfícies -->
+            <div class="md:col-span-1 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="font-semibold text-gray-700 mb-4">Superfícies</h2>
+                <div id="lista-superficies" class="space-y-2"></div>
+            </div>
+
+            <!-- Área de Visualização (O "Sistema" funcionando) -->
+            <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <div id="painel-conteudo">
+                    <h2 class="text-2xl font-bold text-gray-800">Bem-vindo</h2>
+                    <p class="text-gray-600 mt-2">Selecione uma superfície na lista ao lado para carregar as configurações de estamparia.</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    async function gerarEstampa() {
-        const promptText = document.getElementById('prompt').value;
-        const status = document.getElementById('status-text');
-        const imgElement = document.getElementById('imagem-gerada');
-        const botoes = document.getElementById('botoes-acao');
-        
-        if(!promptText) { alert("Deni, descreva o que deseja criar."); return; }
+    <script>
+        // Banco de dados do seu sistema
+        const dados = {
+            "Papel Digital": { temp: "180°C", tempo: "30s", obs: "Use papel específico para sublimação." },
+            "Scrapbook": { temp: "150°C", tempo: "15s", obs: "Cuidado com a espessura do papel." },
+            "MDF": { temp: "200°C", tempo: "60s", obs: "Necessário retirar a película protetora." },
+            "Caneca": { temp: "190°C", tempo: "180s", obs: "Verifique a pressão da prensa." }
+            // Adicione os outros itens aqui seguindo o mesmo padrão...
+        };
 
-        status.innerText = "Processando criação...";
-        imgElement.style.display = 'none';
-        botoes.style.display = 'none';
+        const listaDiv = document.getElementById('lista-superficies');
+        const painel = document.getElementById('painel-conteudo');
+        const superfices = ["Papel Digital", "Scrapbook", "Papelaria", "MDF", "Madeira", "Vidro", "Cerâmica", "Papel de Parede", "Caneca", "Copo", "Bolsa", "Mochila", "Boné", "Embalagem"];
 
-        try {
-            const response = await fetch('/api/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: promptText })
-            });
+        superfices.forEach(nome => {
+            const btn = document.createElement('button');
+            btn.className = "w-full text-left p-3 rounded-lg hover:bg-blue-50 transition border border-gray-100";
+            btn.innerText = nome;
+            btn.onclick = () => carregarSistema(nome);
+            listaDiv.appendChild(btn);
+        });
 
-            const data = await response.json();
-
-            if (response.ok && data.imageUrl) {
-                imgElement.src = data.imageUrl;
-                imgElement.style.display = 'block';
-                status.innerText = "Arte gerada com sucesso!";
-                botoes.style.display = 'grid';
-            } else {
-                status.innerText = "Erro na geração: " + (data.error || "Tente novamente");
-            }
-        } catch (error) {
-            status.innerText = "Erro de conexão.";
+        function carregarSistema(item) {
+            const info = dados[item] || { temp: "N/A", tempo: "N/A", obs: "Configuração não cadastrada." };
+            painel.innerHTML = `
+                <h2 class="text-3xl font-bold text-blue-600">${item}</h2>
+                <div class="mt-6 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg"><span class="block text-gray-500">Temperatura</span><strong class="text-xl">${info.temp}</strong></div>
+                    <div class="bg-gray-50 p-4 rounded-lg"><span class="block text-gray-500">Tempo</span><strong class="text-xl">${info.tempo}</strong></div>
+                </div>
+                <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                    <p class="text-yellow-800"><strong>Dica:</strong> ${info.obs}</p>
+                </div>
+            `;
         }
-    }
-
-    function baixarImagem() {
-        const img = document.getElementById('imagem-gerada');
-        const link = document.createElement('a');
-        link.href = img.src;
-        link.download = 'CineFocus-Estampa.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-</script>
+    </script>
 </body>
 </html>
