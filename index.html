@@ -3,121 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINE FOCUS | ESTÚDIO PRO</title>
+    <title>CINE FOCUS | MOTOR DE GERAÇÃO IA</title>
     <style>
         body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 10px; }
         .container { max-width: 600px; margin: auto; background: #121212; padding: 20px; border-radius: 16px; border: 1px solid #333; }
         
-        /* Status Bar */
         .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #1a1a1a; padding: 10px; border-radius: 10px; }
         .badge { background: #ffab40; color: #000; padding: 4px 8px; font-size: 10px; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
-        .server-status { font-size: 10px; color: #4CAF50; display: flex; align-items: center; gap: 5px; }
-        .dot { height: 8px; width: 8px; background-color: #4CAF50; border-radius: 50%; display: inline-block; }
-
+        
         h1 { color: #ffab40; text-align: center; font-size: 18px; text-transform: uppercase; margin-bottom: 15px; }
         .label-field { display: block; margin-top: 15px; font-size: 10px; color: #ffab40; font-weight: bold; text-transform: uppercase; }
         
-        input, textarea, select { width: 100%; padding: 12px; margin-top: 5px; background: #1a1a1a; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        textarea { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #ffab40; color: #fff; border-radius: 8px; box-sizing: border-box; height: 120px; font-size: 14px; }
         
-        /* Grid Styles */
-        .grid-styles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .btn-style { background: #1a1a1a; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 8px; font-size: 12px; cursor: pointer; text-align: center; }
-        
-        /* Engines */
         .engine-section { margin-top: 15px; padding: 15px; background: #161616; border-radius: 10px; border: 1px solid #222; }
-        .row { display: flex; gap: 10px; }
-        .row > div { flex: 1; }
         
-        /* Buttons */
-        .btn-prod { width: 100%; padding: 18px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 25px; border-radius: 8px; font-size: 16px; }
-        .btn-action-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .btn-action { background: #333; color: #fff; padding: 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 12px; }
-        .btn-vendas { width: 100%; padding: 12px; background: transparent; color: #ffab40; border: 1px solid #ffab40; cursor: pointer; margin-top: 15px; border-radius: 8px; font-size: 13px; }
-
-        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 150px; }
+        .btn-prod { width: 100%; padding: 20px; background: #ffab40; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 20px; border-radius: 8px; font-size: 16px; text-transform: uppercase; }
+        
+        #preview-area { margin-top: 25px; padding: 15px; background: #000; border: 2px dashed #ffab40; border-radius: 12px; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="status-bar">
-        <span class="badge">MONETIZAÇÃO ATIVA</span>
-        <div class="server-status"><span class="dot"></span> SERVIDOR CONECTADO</div>
+        <span class="badge">GERADOR PROMPT-ONLY</span>
+        <span style="font-size: 10px; color: #888;">MOTOR: ATIVO</span>
     </div>
 
-    <h1>Estúdio de Estamparia Adaptável Pro</h1>
+    <h1>CINE FOCUS | ENGENHARIA DE PROMPT</h1>
     
-    <label class="label-field">PEDIDO DE ESTAMPA (GERADOR UNIVERSAL)</label>
-    <textarea id="prompt" rows="3" placeholder="Ex: Capivarinhas de vestidos lilás..."></textarea>
+    <label class="label-field">SEU COMANDO DE CRIAÇÃO (PROMPT)</label>
+    <textarea id="prompt" placeholder="Ex: Estampa de capivarinhas, estilo aquarela, cores lilás e branco, padrão seamless..."></textarea>
     
-    <label class="label-field">ESTILO GRÁFICO</label>
-    <div class="grid-styles">
-        <button class="btn-style">Aquarela Doce</button>
-        <button class="btn-style">Vetor Liso (Flat)</button>
-        <button class="btn-style">Kawaii Cartoon</button>
-        <button class="btn-style">Rústico / Retro</button>
-    </div>
-
     <div class="engine-section">
-        <label class="label-field">FÁBRICA DE COLEÇÕES</label>
-        <select><option>Principal</option><option>Coordenadas</option><option>Barrado</option><option>Fundo</option><option>Elementos</option></select>
-    </div>
-
-    <div class="engine-section">
-        <label class="label-field">ENGINE DE PALETAS</label>
-        <select><option>Luxo</option><option>Boho</option><option>Vintage</option><option>Tropical</option></select>
-        <input type="text" placeholder="HEX, RGB ou CMYK">
-    </div>
-
-    <div class="engine-section">
-        <label class="label-field">SEAMLESS ENGINE</label>
-        <select><option>Half Drop</option><option>Brick</option><option>Espelhado</option><option>Orgânico</option></select>
-    </div>
-
-    <div class="engine-section">
-        <label class="label-field">MOCKUP ENGINE</label>
-        <select>
-            <option>Tecidos</option>
-            <option>Papel digital impresso</option>
-            <option>Papel vegetal</option>
-            <option>Papel de parede</option>
-            <option>Madeira</option>
-            <option>Copos</option>
-            <option>MDF</option>
-            <option>Vidro</option>
-            <option>Embalagens</option>
-        </select>
-    </div>
-
-    <div class="engine-section">
-        <label class="label-field">PRINT READY (FORMATO / DPI)</label>
-        <div class="row">
-            <select><option>PNG</option><option>SVG</option><option>PDF</option><option>TIFF</option></select>
-            <select><option>300 DPI</option><option>600 DPI</option></select>
+        <label class="label-field">ESPECIFICAÇÕES TÉCNICAS</label>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
+            <select id="tamanho"><option>A4</option><option>A3</option></select>
+            <select id="formato"><option>PNG</option><option>TIFF</option><option>PDF</option></select>
         </div>
     </div>
 
-    <button class="btn-prod" onclick="produzir()">GERAR ESTAMPA E VISUALIZAR</button>
+    <button class="btn-prod" onclick="iniciarGeracao()">GERAR NOVA ESTAMPA</button>
     
-    <div class="btn-action-group">
-        <button class="btn-action">BAIXAR</button>
-        <button class="btn-action">EXPORTAR</button>
-        <button class="btn-action">IMPRIMIR</button>
-    </div>
-
-    <label class="label-field" style="margin-top:25px;">VISUALIZAÇÃO DE PRODUÇÃO</label>
     <div id="preview-area">
-        <p id="status-text" style="color:#666; font-size: 12px;">A estampa gerada aparecerá aqui...</p>
+        <p id="status-text" style="color:#666; font-size: 12px;">Aguardando seu comando de geração...</p>
     </div>
 
-    <button class="btn-vendas" onclick="window.location.href='https://wa.me/5512981452413'">ASSINATURA CINE FOCUS (PRO)</button>
+    <button onclick="window.location.href='https://wa.me/5512981452413'" style="width:100%; padding: 10px; background:transparent; color:#ffab40; border:1px solid #ffab40; margin-top:15px; border-radius:8px; cursor:pointer;">ASSINATURA CINE FOCUS (PRO)</button>
 </div>
 
 <script>
-    function produzir() {
+    async function iniciarGeracao() {
         const p = document.getElementById('prompt').value;
         const status = document.getElementById('status-text');
-        if(!p) { alert("Descreva o pedido de estampa."); return; }
-        status.innerText = "Processando IA... Gerando padrões de alta performance.";
+        const preview = document.getElementById('preview-area');
+        
+        if(!p) { 
+            alert("Digite o seu comando (Prompt) para criar."); 
+            return; 
+        }
+
+        status.innerText = "Processando IA... aguarde...";
+
+        try {
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: p })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.imageUrl) {
+                preview.innerHTML = `<img src="${data.imageUrl}" style="width:100%; border-radius:10px;">`;
+                status.innerText = "Estampa gerada com sucesso!";
+            } else {
+                status.innerText = "Erro: " + (data.error || "Falha ao gerar a imagem.");
+            }
+        } catch (error) {
+            status.innerText = "Erro de conexão com o servidor.";
+            console.error(error);
+        }
     }
 </script>
 </body>
