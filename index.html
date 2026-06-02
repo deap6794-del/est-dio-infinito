@@ -1,68 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Estamparia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sovereignty Studio Infinite</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#0b0b0d;
+color:white;
+display:flex;
+height:100vh;
+}
+
+.sidebar{
+width:280px;
+background:#111216;
+padding:20px;
+overflow-y:auto;
+border-right:1px solid #222;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:30px;
+}
+
+.menu button{
+width:100%;
+padding:14px;
+margin-bottom:10px;
+background:#1b1c22;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+text-align:left;
+}
+
+.menu button:hover{
+background:#292b33;
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow-y:auto;
+}
+
+.card{
+background:#15161b;
+padding:20px;
+border-radius:16px;
+margin-bottom:20px;
+}
+
+h2{
+margin-bottom:15px;
+}
+
+textarea{
+width:100%;
+height:120px;
+background:#0f1014;
+border:1px solid #333;
+color:white;
+padding:15px;
+border-radius:10px;
+resize:none;
+}
+
+select{
+width:100%;
+padding:12px;
+background:#0f1014;
+color:white;
+border:1px solid #333;
+border-radius:10px;
+margin-top:10px;
+}
+
+.generate{
+margin-top:20px;
+padding:15px;
+width:100%;
+background:#ff9800;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.generate:hover{
+opacity:0.9;
+}
+
+.preview{
+height:400px;
+border:2px dashed #444;
+border-radius:16px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
+color:#777;
+}
+
+.palette{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+margin-top:15px;
+}
+
+.color{
+height:50px;
+border-radius:10px;
+}
+
+</style>
 </head>
-<body class="bg-gray-100 min-h-screen p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Painel de Produção</h1>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Menu de Superfícies -->
-            <div class="md:col-span-1 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-                <h2 class="font-semibold text-gray-700 mb-4">Superfícies</h2>
-                <div id="lista-superficies" class="space-y-2"></div>
-            </div>
+<body>
 
-            <!-- Área de Visualização (O "Sistema" funcionando) -->
-            <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                <div id="painel-conteudo">
-                    <h2 class="text-2xl font-bold text-gray-800">Bem-vindo</h2>
-                    <p class="text-gray-600 mt-2">Selecione uma superfície na lista ao lado para carregar as configurações de estamparia.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="sidebar">
 
-    <script>
-        // Banco de dados do seu sistema
-        const dados = {
-            "Papel Digital": { temp: "180°C", tempo: "30s", obs: "Use papel específico para sublimação." },
-            "Scrapbook": { temp: "150°C", tempo: "15s", obs: "Cuidado com a espessura do papel." },
-            "MDF": { temp: "200°C", tempo: "60s", obs: "Necessário retirar a película protetora." },
-            "Caneca": { temp: "190°C", tempo: "180s", obs: "Verifique a pressão da prensa." }
-            // Adicione os outros itens aqui seguindo o mesmo padrão...
-        };
+<div class="logo">
+Sovereignty Studio Infinite
+</div>
 
-        const listaDiv = document.getElementById('lista-superficies');
-        const painel = document.getElementById('painel-conteudo');
-        const superfices = ["Papel Digital", "Scrapbook", "Papelaria", "MDF", "Madeira", "Vidro", "Cerâmica", "Papel de Parede", "Caneca", "Copo", "Bolsa", "Mochila", "Boné", "Embalagem"];
+<div class="menu">
 
-        superfices.forEach(nome => {
-            const btn = document.createElement('button');
-            btn.className = "w-full text-left p-3 rounded-lg hover:bg-blue-50 transition border border-gray-100";
-            btn.innerText = nome;
-            btn.onclick = () => carregarSistema(nome);
-            listaDiv.appendChild(btn);
-        });
+<button>Dashboard</button>
+<button>Criar Estampa</button>
+<button>Coleções</button>
+<button>Engenharia Reversa</button>
+<button>Papéis Digitais</button>
+<button>Superfícies</button>
+<button>Mockups</button>
+<button>Paletas</button>
+<button>Exportações</button>
+<button>Marketplace</button>
 
-        function carregarSistema(item) {
-            const info = dados[item] || { temp: "N/A", tempo: "N/A", obs: "Configuração não cadastrada." };
-            painel.innerHTML = `
-                <h2 class="text-3xl font-bold text-blue-600">${item}</h2>
-                <div class="mt-6 grid grid-cols-2 gap-4">
-                    <div class="bg-gray-50 p-4 rounded-lg"><span class="block text-gray-500">Temperatura</span><strong class="text-xl">${info.temp}</strong></div>
-                    <div class="bg-gray-50 p-4 rounded-lg"><span class="block text-gray-500">Tempo</span><strong class="text-xl">${info.tempo}</strong></div>
-                </div>
-                <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                    <p class="text-yellow-800"><strong>Dica:</strong> ${info.obs}</p>
-                </div>
-            `;
-        }
-    </script>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="card">
+
+<h2>Descreva sua Estampa</h2>
+
+<textarea placeholder="Ex: Floral aquarela azul e dourado para papelaria de luxo"></textarea>
+
+<select>
+
+<option>Papel Digital</option>
+<option>Scrapbook</option>
+<option>Convite</option>
+<option>Tecido Algodão</option>
+<option>Caneca Cerâmica</option>
+<option>Azulejo</option>
+<option>Mouse Pad</option>
+<option>Boné</option>
+<option>Almofada</option>
+<option>Madeira</option>
+<option>Vidro</option>
+<option>Metal</option>
+
+</select>
+
+<button class="generate">
+GERAR ESTAMPA
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Banco de Paletas Infinitas</h2>
+
+<div class="palette">
+
+<div class="color" style="background:#D4AF37;"></div>
+<div class="color" style="background:#0A2342;"></div>
+<div class="color" style="background:#F8F4E3;"></div>
+<div class="color" style="background:#B76E79;"></div>
+<div class="color" style="background:#2E4057;"></div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Resultado da IA</h2>
+
+<div class="preview">
+A estampa gerada aparecerá aqui
+</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
