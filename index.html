@@ -36,3 +36,33 @@ estudio-infinito-premium/
 ├── package.json           # Dependências e scripts do projeto
 ├── tailwind.config.ts     # Customização de temas e design system
 └── tsconfig.json          # Configurações do compilador TypeScript
+
+---
+
+## 🛡️ Arquivo 2: `.gitignore`
+> **O que fazer:** Crie um arquivo chamado exatamente `.gitignore` na raiz do seu projeto (caso ele ainda não exista) e cole o código abaixo. Isso impede que arquivos pesados ou dados sensíveis (como suas senhas do Supabase) vazem na internet.
+
+```text
+# Dependências
+node_modules/
+/.pnp
+.pnp.js
+
+# Build e Outputs do Next.js
+.next/
+out/
+build/
+
+# Variáveis de ambiente e segredos (NUNCA enviar ao GitHub)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs e arquivos de sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+*.local
